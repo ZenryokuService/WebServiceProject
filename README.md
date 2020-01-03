@@ -1,0 +1,2 @@
+# WebServiceProject
+レンタルサーバー(WordPress)とAngularJSでのWebサービスプロジェクト
