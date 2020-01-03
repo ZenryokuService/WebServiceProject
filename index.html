@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap 4 Template Stoke Sticky</title>
+    <meta name="description" content="A responsive template with a large top header above 3 columns. This template uses position:sticky to attach the left 2 columns accordingly when the user scrolls. Dropdown search for in navbar. Feather icons." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Codeply">
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="./bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="./bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+
+
+    <!-- Angular and BootStrap -->
+    <title>programing play ground PGボックス</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular -->
+    <script src="./angular-1.7.9/angular.min.js"></script>
+    <script src="./angular-1.7.9/angular-route.min.js"></script>
+    <!-- PGボックス(上から順に読み込む) -->
+    <script src="./project/dataConst.js"></script>
+    <script src="./project/config.js"></script>
+    <script src="./project/pgbox.js"></script>
+    <!-- Google自動広告 -->
+    <script data-ad-client="ca-pub-7367785927150581" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <style>
+    /* The heart of the matter */
+    .testimonial-group > .row {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .testimonial-group > .row > .col-xs-4 {
+      display: inline-block;
+      float: none;
+    }
+    /* for horizonal menu */
+    div.scrollmenu {
+      background-color: #333;
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    div.scrollmenu a {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+    }
+
+    div.scrollmenu a:hover {
+      background-color: #777;
+    }
+    </style>
+  </head>
+  <body ng-app= "pgBoxAG" class="bg-light"  ng-controller="pgboxCtrl">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container" ng-controller="topController">
+        <a class="navbar-brand text-uppercase" href="https://www.codeply.com" target="ext">PG Box</a>
+        <a class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </a>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a href="#" class="nav-link">Link</a>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link">Link</a>
+                </li>
+                <li class="dropdown nav-item"> <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Channels</a>
+                    <ul class="dropdown-menu dropdown-menu-right rounded-0 mt-2">
+                        <li class="dropdown-item"><a href="#">Sub-link</a>
+                        </li>
+                        <li class="dropdown-item"><a href="#">Sub-link</a>
+                        </li>
+                        <li class="dropdown-item"><a href="#">Sub-link</a>
+                        </li>
+                        <li class="dropdown-item"><a href="#">Sub-link</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="ml-auto navbar-nav">
+                <li class="dropdown nav-item"> <a href="#" class="nav-link pb-0" data-toggle="dropdown"><i data-feather="search"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right p-2 bg-dark shadow">
+                        <form class="form-inline flex-nowrap">
+                            <input type="text" class="form-control border-bottom-0 rounded-0" placeholder="Search">
+                            <button type="submit" class="btn btn-secondary rounded-0">
+                                GO
+                            </button>
+                        </form>
+                    </ul>
+                </li>
+                <li class="dropdown nav-item"> <a href="#" class="dropdown-toggle nav-link pb-0" data-toggle="dropdown"><i data-feather="user"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right rounded-0 mt-2">
+                        <li class="dropdown-item">
+                            <a href="#" class="text-purple">Login</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="#" class="text-purple">Profile</a>
+                        </li>
+                        <li class="divider dropdown-item"></li>
+                        <li class="dropdown-item">
+                            <a href="http://themes.guide/" target="_neww" class="text-purple">About</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- /.navbar -->
+<header class="masthead">
+    <div class="container py-3 bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1><a href="#" title="Scroll down for your viewing pleasure" class="text-purple">{{pageTitle}}</a>
+                  <p class="lead">3-column <span class="text-purple">sticky!</span> layout for <b>Bootstrap 4</b>.</p>
+                </h1>
+            </div>
+            <div class="col-lg-12 bg-dark text-white text-center">
+                <div class="scrollmenu" style="display:{{leftSideBar_disp}}">
+                    <a ng-repeat="categ in categories" ng-href="{{categ.url}}">{{categ.name}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</header>
+<!-- Begin Body -->
+<div class="container bg-white">
+    <div class="no-gutters row">
+        <!--/end left column-->
+        <!--mid column-->
+
+        <!--/end mid column-->
+        <!-- right content column-->
+        <div ng-view></div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 py-5 text-right">
+                <h6>©Company 2018</h6>
+            </div>
+        </div>
+    </div>
+</footer>
+    <!--scripts loaded here-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/feather-icons@4.7.0/dist/feather.min.js"></script>
+
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
