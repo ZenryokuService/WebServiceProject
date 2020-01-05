@@ -1,9 +1,10 @@
 /** サイトマップの表示部分コントローラー */
-app.controller('siteMapCtrl',['$scope', function($scope){
+app.controller('siteMapCtrl',['$scope', 'SiteMapService', function($scope, SiteMapService){
     $scope.title = "Hello";
-    $scope.$on('getCategoryPosts', function(catId) {
+    const service = SiteMapService;
+    $scope.$on('getCategoryPosts', function(event, catId) {
         alert("testOn");
-        SiteMapService.getCategoryPosts(catId).then(function(response, status, headers, config){
+        service.getCategoryPosts(catId).then(function(response, status, headers, config){
           $scope.categories = response.data;
         }), function(data, status, headers, config) {
           alert(data);

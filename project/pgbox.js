@@ -13,7 +13,7 @@ app.controller("pgboxCtrl", function($scope, $http, $window, PageDataFactory, Si
          alert(data);
        };
    }
-   // 画面嬢の処理
+   // 画面上の処理
    $scope.changeView = function (catId) {
        $scope.$broadcast('getCategoryPosts', catId);
    };
