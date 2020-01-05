@@ -1,18 +1,21 @@
 /** PGボックスサイトマップ用(ルートコントローラ) */
-app.controller("pgboxCtrl", function($scope, $http, $window, PageDataFactory) {
+app.controller("pgboxCtrl", function($scope, $http, $window, PageDataFactory, SiteMapService) {
    // 初期表示処理
    $scope.pageTitle = PageDataFactory.title;
+   // タイトル部分のリフレッシュ
    $scope.leftSideBar_disp = "block";
-   $window.location.href = "#!/pgbox";
-   // 1サーバーに対してリクエストを送信
-   $http({
-     method: 'GET',
-     url: './tools/pgbox/getCategories.php',
-     params: {} // パラメータなし
-   }).then(function(response, status, headers, config){
-     $scope.categories = response.data;
-   }), function(data, status, headers, config) {
-     alert(data);
+   // 初期表示時のみ(angular.extends使用時に呼ばれる)
+   if ($scope.pageTitle === 'Site Map') {
+       $window.location.href = "#!/pgbox";
+       SiteMapService.getCategoriesTitle().then(function(response, status, headers, config){
+         $scope.categories = response.data;
+       }), function(data, status, headers, config) {
+         alert(data);
+       };
+   }
+   // 画面嬢の処理
+   $scope.changeView = function (catId) {
+       $scope.$broadcast('getCategoryPosts', catId);
    };
 });
 

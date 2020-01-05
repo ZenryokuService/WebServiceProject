@@ -1,10 +1,10 @@
 /**************************
  * 1.PGボックス用APPモジュール *
  ***************************/
- // 言語取得
- const docLang = 'ja'; //navigator.language;
- // モジュール
- let app = angular.module('pgBoxAG', ['ngRoute']);
+// 言語取得
+const docLang = 'ja'; //navigator.language;
+// モジュール($routeProvider, $stateProvider)
+let app = angular.module('pgBoxAG', ['ngRoute']);
 
 /** (仮実装)ナビケーションタグのコントローラー */
 app.controller('navController', function($scope, $http) {
@@ -18,7 +18,7 @@ app.controller('navController', function($scope, $http) {
 app.factory('PageDataFactory', function() {
     // ページモデル初期化
     let pageModel = {
-        title: 'SiteMap'
+        title: 'Site Map'
     };
     return pageModel;
 });
@@ -27,10 +27,11 @@ app.factory('PageDataFactory', function() {
  * 2.PGボックス用hルーティングモジュール *
  ************************************/
 app.config(function($routeProvider) {
+  // ルーティング
   $routeProvider
   .when("/pgbox", {
-      templateUrl: "./project/pgboxSiteMap.htm",
-      controller : "pgboxCtrl"
+    templateUrl: "./project/pgboxSiteMap.htm",
+    controller : "pgboxCtrl"
   }).when("/london", {
     templateUrl : "./project/london.htm",
     controller : "londonCtrl"
@@ -39,12 +40,16 @@ app.config(function($routeProvider) {
     controller : "parisCtrl"
   });
 });
+
 /** サンプルコントローラ */
 app.controller("londonCtrl", function ($scope) {
   $scope.pageTitle = "London reports";
   $scope.msg = "I love London";
 });
-app.controller("parisCtrl", function ($scope, PageDataFactory) {
+app.controller("parisCtrl", function ($scope, $controller, PageDataFactory) {
     PageDataFactory.title = "Paris page";
+    // AngularJSでコントロールできないのでDOMを使用する
+    document.getElementById("pageTitle").text = PageDataFactory.title;
+//    angular.extend(this, $controller('pgboxCtrl', {$scope: $scope}));
   $scope.msg = "I love Paris";
 });
