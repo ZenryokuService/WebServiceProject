@@ -10,7 +10,7 @@ $vals = json_decode($json, true);
 
 // JSONプロパティの値を取得する
 
-$insertSQL = "INSERT INTO `QUESTIONARY`(`question`, `answer1`, `answer2`, `answer3`, `answer4`, `answer5`, `hrml_class`, `html_style`) VALUES (";
+$insertSQL = "INSERT INTO `QUESTIONARY`(`question`, `answer1`, `answer2`, `answer3`, `answer4`, `answer5`, `html_class`, `html_style`) VALUES (";
 
 $array = get_object_vars($data);
 $keys = array('question', 'ans0', 'ans1', 'ans2', 'ans3', 'ans4', 'hrml_class', 'html_style');

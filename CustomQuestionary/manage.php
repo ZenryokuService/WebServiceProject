@@ -5,9 +5,17 @@ $rootUrl = plugins_url();
 $insertUrl = $rootUrl . '/CustomQuestionary/InsertQuestionary.php';
 // DB削除用のPHPファイルへのURL
 $deleteUrl = $rootUrl . '/CustomQuestionary/DeleteQuestionary.php';
+$pageCount = $_SESSION['pageCount']+1;
 
 global $wpdb;
 $dataCount = $wpdb->get_var('SELECT count(question_id) FROM QUESTIONARY');
+
+$func = <<<EOM
+function getPageCount() {
+    return $pageCount;
+}
+EOM;
+echo '<script>' . $func . '</script>';
 ?>
 
 <h1>Custom Questionary Plugin</h1>
@@ -52,6 +60,7 @@ $dataCount = $wpdb->get_var('SELECT count(question_id) FROM QUESTIONARY');
                                 <th>回答3(ans3)</th>
                                 <th>回答4(ans4)</th>
                                 <th>回答5(ans5)</th>
+                                <th>挿入先</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +77,7 @@ $dataCount = $wpdb->get_var('SELECT count(question_id) FROM QUESTIONARY');
                                 echo '<td>' . $data['answer3'] . '</td>';
                                 echo '<td>' . $data['answer4'] . '</td>';
                                 echo '<td>' . $data['answer5'] . '</td>';
+                                echo '<td>' . $data['html_class'] . '</td>';
                                 echo '</tr>';
                                 $recordCount++;
                             }
@@ -105,13 +115,13 @@ $dataCount = $wpdb->get_var('SELECT count(question_id) FROM QUESTIONARY');
             <td>
                 <select id="insertPosSelect" onchange="inputInsertPos(this)">
                     <option selected></option>
-                    <option value="wrap">wrap</option>
+                    <option value="site-navigation">site-navigation</option>
+                    <option value="main">main</option>
+                    <option value="reply-title">reply-title</option>
                     <option value="primary">primary</option>
-                    <option value="entry-header">entry-header</option>
-                    <option value="entry-title">entry-title</option>
-                    <option value="entry-content">entry-content</option>
-                    <option value="twitter-share">twitter-share</option>
-                    <optopm vaiue="entry-footer">entry-footer</option>
+                    <option value="comments">comments</option>
+                    <option value="respond">respond</option>
+                    <optopm vaiue="main">main</option>
                 </select>
                 <input id="insertPos" type="text" maxlength="30" size="35" placeholder="挿入場所を記入します"/>
             </td>

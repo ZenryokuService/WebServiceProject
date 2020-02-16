@@ -26,6 +26,10 @@ License: GPL2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+/**
+1. output JS for create QUESTIONARY in this php script
+2. load JS and insert Question Form to post
+*/
 ini_set('display_errors', "On");
 //echo $_SERVER['DOCUMENT_ROOT'];
 // require_once($_SERVER['DOCUMENT_ROOT'] . "/wp/wp-load.php");
@@ -63,55 +67,45 @@ EOM;
 function insertQuestionary() {
     global $wpdb;
     $dataCount = $wpdb->get_var('SELECT count(question_id) FROM QUESTIONARY');
+    // セッションカウンタ
+    if (!isset($_SESSION['pageCount'])) {
+        $_SESSION['pageCount'] = 0;
+    } else {
+        $_SESSION['pageCount']++;
+    }
+    $pageCount = $_SESSION['pageCount'];
     if ($dataCount > 0) {
         $result = $wpdb->get_results('SELECT * FROM QUESTIONARY', ARRAY_A);
+
         $qId = $result[0]['question_id'];
         $question = $result[0]['question'];
-        $insertPos = $result[0]['hrml_class'];
+        $insertPos = $result[0]['html_class'] != "" ? $result[0]['html_class'] : "";
 //        $ansArray = array($result[0]['answer1'], $result[0]['answer2'], $result[0]['answer3'], $result[0]['answer15'], $result[0]['answer5']);
         $ans1 = $result[0]['answer1'];
         $ans2 = $result[0]['answer2'];
         $ans3 = $result[0]['answer3'];
         $ans4 = $result[0]['answer4'];
         $ans5 = $result[0]['answer5'];
+        // JSON
+        $json = json_encode($result);
 
 $insertScript = <<<EOM
+<style>
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css";
+
+</style>
 <script>
-let INSERT_POS = "$insertPos";
-function getQuestionary() {
-    let messageElement = document.createElement("div");
-    messageElement.innerHTML = '<span class="badge badge-primary text-wrap" style="width: 4rem;">Question</span><br/><span id="question" data-qid="$qId" class="text-capitalize">$question</span>';
+let INSERT_POS;
+let PAGE_COUNT = $pageCount;
+let JSON_DATA = $json;
 
-    if ('$ans1' != "") {
-        createQChild('$ans1', 1, messageElement);
-    }
-    if ('$ans2' != "") {
-        createQChild('$ans2', 2, messageElement);
-    }
-    if ('$ans3' != "") {
-        createQChild('$ans3', 3, messageElement);
-    }
-    if ('$ans4' != "") {
-        createQChild('$ans4', 4, messageElement);
-    }
-    if ('$ans5' != "") {
-        createQChild('$ans5', 5, messageElement);
-    }
-    return messageElement;
-}
-
-function createQChild(ans, no, messageElement) {
-    let but = document.createElement("button");
-    but.id = "ans" + no;
-    but.innerText = ans;
-    but.dataset.ans = ans
-    messageElement.appendChild(but);
-}
 </script>
+
 EOM;
         echo $insertScript;
         // HTML挿入用のJSを読み込む
         echo '<script type="text/javascript" src="' . plugins_url('insertPOST.js', __FILE__) .'"></script>';
+
     }
 }
 

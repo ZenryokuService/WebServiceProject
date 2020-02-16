@@ -8,6 +8,7 @@ let num = 0;
 const MAX_COUNT = 5;
 let INSERT_URL = '<?php echo $insertUrl; ?>';
 let DELETE_URL = '<?php echo $deleteUrl; ?>';
+
 // 入力フォームをクリアするフラグ
 let delInput = false;
 // XMLHttpRequest
@@ -52,7 +53,7 @@ function createForm() {
     let inputs = table.getElementsByTagName("input");
 
     let messageElement = document.createElement("div");
-    messageElement.innerHTML = '<span class="badge badge-primary text-wrap" style="width: 4rem;">Question</span><br/><span id="question" class="text-capitalize">' + question + '</span>';
+    messageElement.innerHTML = '<span class="badge badge-primary text-wrap" style="width: 5rem;">Question</span><br/><span id="question" class="text-capitalize">' + question + '</span>';
     let dom = document.getElementById("result");
     dom.appendChild(messageElement);
 
